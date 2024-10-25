@@ -7,13 +7,6 @@ import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speac
 import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speach-to-text-event.dart';
 import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speach-to-text-state.dart';
 import 'package:new_wall_paper_app/speech-to-text/pages/text-to-audio-screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speach-to-text-bloc.dart';
-import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speach-to-text-event.dart';
-import 'package:new_wall_paper_app/speech-to-text/bloc/speech-to-text-bloc/speach-to-text-state.dart';
-import 'package:new_wall_paper_app/speech-to-text/pages/text-to-audio-screen.dart';
-
 class SpeechToTextScreen extends StatefulWidget {
   const SpeechToTextScreen({super.key});
 
@@ -67,7 +60,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen> {
                       controller: _controller,
                       enabled: fanState == 1,
                       maxLines: null,
-                      // decoration: InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Transcription',
                         border: OutlineInputBorder(),
                       ),
@@ -77,6 +70,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
+                  // Record and Stop buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -306,5 +300,13 @@ class VoiceToTextStopped extends VoiceToTextState {}
 
 
 
+
+
+
+
+
+///////////////////////////// tayyab page //////////////////////////
+///
+///
 
 

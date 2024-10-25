@@ -9,7 +9,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 class SpeechTextBloc extends Bloc<SpeechTextEvent, SpeechTextState> {
   late stt.SpeechToText _speech;
   int _fanState = 0;
-  bool _isValid = true;
+  bool _isValid = true;bool _isRecording = false;
 
   SpeechTextBloc() : super(SpeechTextInitial()) {
     _speech = stt.SpeechToText();
@@ -28,16 +28,27 @@ class SpeechTextBloc extends Bloc<SpeechTextEvent, SpeechTextState> {
     }
   }
 
-  Future<void> _onStartListening(StartListening event, Emitter<SpeechTextState> emit) async {
-    if (_speech.isListening) return; 
+ Future<void> _onStartListening(StartListening event, Emitter<SpeechTextState> emit) async {
+  if (_speech.isListening) return; 
 
-    await _speech.listen(
-      onResult: (result) {
-        add(UpdateTranscription(result.recognizedWords.toLowerCase()));
-      },
-    );
-    emit(FanListening());
-  }
+  await _speech.listen(
+    onResult: (result) {
+      add(UpdateTranscription(result.recognizedWords.toLowerCase()));
+    },
+    listenFor: Duration(hours: 1),
+    pauseFor: Duration(minutes: 1), 
+    partialResults: true, 
+  );
+
+  _speech.statusListener = (status) {
+    if (status == "notListening" && _isRecording) { 
+      add(StartListening()); 
+    }
+  };
+
+  emit(FanListening());
+}
+
 
   Future<void> _onStopListening(StopListening event, Emitter<SpeechTextState> emit) async {
     if (_speech.isListening) {
